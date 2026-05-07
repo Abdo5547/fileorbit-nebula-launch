@@ -95,8 +95,15 @@ function Step({
   end: number;
   index: number;
 }) {
-  const opacity = useTransform(progress, [start - 0.05, start + 0.05, end - 0.05, end + 0.05], [0.3, 1, 1, 0.3]);
-  const x = useTransform(progress, [start, start + 0.1], [-20, 0]);
+  const clamp = (n: number) => Math.max(0, Math.min(1, n));
+  const a = clamp(start - 0.05);
+  const b = clamp(start + 0.05);
+  const c = clamp(end - 0.05);
+  const d = clamp(end + 0.05);
+  // Ensure strictly increasing
+  const stops = [a, Math.max(b, a + 0.0001), Math.max(c, b + 0.0001), Math.max(d, c + 0.0001)];
+  const opacity = useTransform(progress, stops, [0.3, 1, 1, 0.3]);
+  const x = useTransform(progress, [clamp(start), clamp(start + 0.1)], [-20, 0]);
   const Icon = step.icon;
   return (
     <motion.div style={{ opacity, x }} className="glass rounded-2xl p-4 flex gap-4 items-start">
