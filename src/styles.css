@@ -63,25 +63,39 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  /* FileOrbit — deep space dark theme */
+  --background: oklch(0.13 0.04 270);
+  --foreground: oklch(0.97 0.01 250);
+  --card: oklch(0.18 0.05 275 / 0.6);
+  --card-foreground: oklch(0.97 0.01 250);
+  --popover: oklch(0.18 0.05 275);
+  --popover-foreground: oklch(0.97 0.01 250);
+  --primary: oklch(0.72 0.2 295);
+  --primary-foreground: oklch(0.12 0.04 270);
+  --secondary: oklch(0.78 0.15 220);
+  --secondary-foreground: oklch(0.12 0.04 270);
+  --muted: oklch(0.25 0.04 270);
+  --muted-foreground: oklch(0.72 0.03 260);
+  --accent: oklch(0.82 0.16 200);
+  --accent-foreground: oklch(0.12 0.04 270);
+  --destructive: oklch(0.65 0.24 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.7 0.1 280 / 0.18);
+  --input: oklch(0.7 0.1 280 / 0.2);
+  --ring: oklch(0.72 0.2 295);
+
+  /* FileOrbit custom tokens */
+  --orbit-violet: oklch(0.72 0.22 300);
+  --orbit-cyan: oklch(0.85 0.16 200);
+  --orbit-blue: oklch(0.65 0.2 260);
+  --orbit-deep: oklch(0.09 0.04 270);
+  --gradient-cosmic: linear-gradient(135deg, oklch(0.72 0.22 300), oklch(0.65 0.2 260) 50%, oklch(0.85 0.16 200));
+  --gradient-aurora: radial-gradient(ellipse at top, oklch(0.4 0.18 290 / 0.5), transparent 60%);
+  --gradient-planet: radial-gradient(circle at 30% 30%, oklch(0.85 0.18 200), oklch(0.55 0.22 285) 45%, oklch(0.2 0.08 280) 80%);
+  --shadow-glow: 0 0 60px oklch(0.72 0.22 300 / 0.45), 0 0 120px oklch(0.65 0.2 260 / 0.25);
+  --shadow-card: 0 8px 32px oklch(0.05 0.03 270 / 0.6);
+  --glass-bg: oklch(0.22 0.05 275 / 0.35);
+  --glass-border: oklch(0.85 0.05 280 / 0.15);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +154,51 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    overflow-x: hidden;
   }
 }
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border);
+  }
+  .text-gradient {
+    background: var(--gradient-cosmic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-cosmic { background: var(--gradient-cosmic); }
+  .bg-aurora { background-image: var(--gradient-aurora); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .planet {
+    background: var(--gradient-planet);
+    box-shadow: var(--shadow-glow), inset -30px -30px 80px oklch(0.05 0.04 270 / 0.7);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px oklch(0.72 0.22 300 / 0.4); }
+  50% { box-shadow: 0 0 70px oklch(0.72 0.22 300 / 0.8); }
+}
+.animate-float { animation: float-slow 6s ease-in-out infinite; }
+.animate-orbit { animation: orbit-spin 40s linear infinite; }
+.animate-orbit-reverse { animation: orbit-spin 50s linear infinite reverse; }
+.animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
