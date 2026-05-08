@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FileText, Image as ImageIcon, FileType2, HardDrive, Zap, Clock } from "lucide-react";
+import dashboardBg from "@/assets/dashboard-bg.jpg";
 
 const recent = [
   { icon: FileText, name: "contrat-2026.pdf", time: "il y a 2 min", status: "Done", color: "text-green-400" },
@@ -24,8 +25,18 @@ const actions = [
 
 export function DashboardPreview() {
   return (
-    <section className="relative py-32 px-4 sm:px-6">
-      <div className="mx-auto max-w-6xl">
+    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+      <img
+        src={dashboardBg}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        width={1536}
+        height={1024}
+        className="absolute inset-0 h-full w-full object-cover opacity-15"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background pointer-events-none" />
+      <div className="relative mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <p className="text-sm font-medium text-gradient">Tableau de bord</p>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold">Pilotez votre orbite</h2>
