@@ -1,134 +1,60 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Upload, ScanLine, ShieldCheck, Download, FileText, FileType2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Upload, ScanLine, ShieldCheck, Download } from "lucide-react";
+import toolsBg from "@/assets/tools-bg.jpg";
 
 const steps = [
   { icon: Upload, title: "Déposez votre fichier", desc: "Glissez-déposez ou importez depuis le cloud. Tous formats acceptés." },
-  { icon: ScanLine, title: "Analyse intelligente", desc: "Notre moteur identifie le contenu et choisit la meilleure orbite." },
+  { icon: ScanLine, title: "Analyse intelligente", desc: "Notre moteur identifie le contenu et choisit la meilleure transformation." },
   { icon: ShieldCheck, title: "Conversion sécurisée", desc: "Chiffrement AES-256 de bout en bout. Vos fichiers ne sont jamais stockés." },
   { icon: Download, title: "Téléchargement instantané", desc: "Récupérez votre fichier transformé en quelques secondes." },
 ];
 
 export function ScrollStory() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-
-  const fileX = useTransform(scrollYProgress, [0, 0.5, 1], ["-40%", "0%", "40%"]);
-  const fileRotate = useTransform(scrollYProgress, [0, 1], [-15, 360]);
-  const fileOpacity = useTransform(scrollYProgress, [0, 0.45, 0.55, 1], [1, 1, 0, 0]);
-  const docxOpacity = useTransform(scrollYProgress, [0.45, 0.6, 1], [0, 1, 1]);
-  const ringScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.4, 0.9]);
-  const ringGlow = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.4]);
-
   return (
-    <section ref={ref} className="relative" style={{ height: "300vh" }}>
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 grid lg:grid-cols-2 gap-10 items-center">
-          {/* steps */}
-          <div className="space-y-5">
-            <p className="text-sm font-medium text-gradient">Le parcours d'un fichier</p>
-            <h2 className="text-3xl sm:text-4xl font-bold leading-tight">
-              De votre disque à l'orbite, <br /> en 4 étapes lumineuses.
-            </h2>
-            <div className="mt-8 space-y-4">
-              {steps.map((s, i) => {
-                const start = i / steps.length;
-                const end = (i + 1) / steps.length;
-                return <Step key={s.title} step={s} progress={scrollYProgress} start={start} end={end} index={i} />;
-              })}
-            </div>
-          </div>
+    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+      <img
+        src={toolsBg}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        width={1536}
+        height={1024}
+        className="absolute inset-0 h-full w-full object-cover opacity-20"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background pointer-events-none" />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-sm font-medium text-gradient">Le parcours d'un fichier</p>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-bold leading-tight">
+            De votre disque au résultat, en 4 étapes
+          </h2>
+        </div>
 
-          {/* visual */}
-          <div className="relative aspect-square max-w-[520px] mx-auto w-full">
-            <Starlines />
-            {/* glowing ring */}
-            <motion.div
-              style={{ scale: ringScale, opacity: ringGlow }}
-              className="absolute inset-[18%] rounded-full border-2 border-cyan-300/40"
-            >
-              <div className="absolute inset-0 rounded-full bg-cosmic blur-2xl opacity-30" />
-            </motion.div>
-            <motion.div
-              style={{ scale: ringScale }}
-              className="absolute inset-[26%] rounded-full border border-violet-400/30"
-            />
-
-            {/* PDF file */}
-            <motion.div
-              style={{ x: fileX, rotate: fileRotate, opacity: fileOpacity }}
-              className="absolute inset-0 flex items-center justify-center"
-            >
-              <div className="glass rounded-2xl p-5 shadow-glow flex flex-col items-center gap-2">
-                <FileText className="h-12 w-12 text-cyan-300" />
-                <span className="text-xs font-mono text-muted-foreground">document.pdf</span>
-              </div>
-            </motion.div>
-
-            {/* DOCX result */}
-            <motion.div
-              style={{ x: fileX, opacity: docxOpacity }}
-              className="absolute inset-0 flex items-center justify-center"
-            >
-              <div className="glass rounded-2xl p-5 shadow-glow flex flex-col items-center gap-2">
-                <FileType2 className="h-12 w-12 text-violet-300" />
-                <span className="text-xs font-mono text-muted-foreground">document.docx</span>
-              </div>
-            </motion.div>
-          </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {steps.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className="glass rounded-2xl p-5 relative"
+              >
+                <div className="absolute -top-3 -right-3 h-7 w-7 rounded-full bg-secondary text-secondary-foreground text-xs font-bold flex items-center justify-center">
+                  {i + 1}
+                </div>
+                <div className="h-11 w-11 rounded-xl bg-cosmic flex items-center justify-center shadow-glow">
+                  <Icon className="h-5 w-5 text-primary-foreground" />
+                </div>
+                <div className="mt-4 font-semibold">{s.title}</div>
+                <div className="text-sm text-muted-foreground mt-1">{s.desc}</div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
-  );
-}
-
-function Step({
-  step,
-  progress,
-  start,
-  end,
-  index,
-}: {
-  step: (typeof steps)[number];
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
-  start: number;
-  end: number;
-  index: number;
-}) {
-  const clamp = (n: number) => Math.max(0, Math.min(1, n));
-  const a = clamp(start - 0.05);
-  const b = clamp(start + 0.05);
-  const c = clamp(end - 0.05);
-  const d = clamp(end + 0.05);
-  // Ensure strictly increasing
-  const stops = [a, Math.max(b, a + 0.0001), Math.max(c, b + 0.0001), Math.max(d, c + 0.0001)];
-  const opacity = useTransform(progress, stops, [0.3, 1, 1, 0.3]);
-  const x = useTransform(progress, [clamp(start), clamp(start + 0.1)], [-20, 0]);
-  const Icon = step.icon;
-  return (
-    <motion.div style={{ opacity, x }} className="glass rounded-2xl p-4 flex gap-4 items-start">
-      <div className="h-11 w-11 rounded-xl bg-cosmic flex items-center justify-center shrink-0 shadow-glow">
-        <Icon className="h-5 w-5 text-white" />
-      </div>
-      <div>
-        <div className="text-xs text-muted-foreground">Étape {index + 1}</div>
-        <div className="font-semibold">{step.title}</div>
-        <div className="text-sm text-muted-foreground mt-1">{step.desc}</div>
-      </div>
-    </motion.div>
-  );
-}
-
-function Starlines() {
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute top-1/2 left-1/2 h-px w-1/2 bg-gradient-to-r from-cyan-400/0 via-cyan-300/50 to-violet-500/0"
-          style={{ transform: `rotate(${i * 30}deg) translateX(-50%)`, transformOrigin: "left" }}
-        />
-      ))}
-    </div>
   );
 }

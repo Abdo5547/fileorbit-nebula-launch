@@ -65,14 +65,14 @@ export function ConvertPreview() {
               {files.map((f, i) => (
                 <div key={f.name} className="glass rounded-xl p-3 flex items-center gap-3">
                   <div className="h-10 w-10 rounded-lg bg-white/5 flex items-center justify-center">
-                    <FileText className="h-5 w-5 text-cyan-300" />
+                    <FileText className="h-5 w-5 text-secondary" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-medium truncate">{f.name}</div>
                     <div className="text-xs text-muted-foreground">{f.size}</div>
                   </div>
                   {i === 0 ? (
-                    <Loader2 className="h-4 w-4 animate-spin text-cyan-300" />
+                    <Loader2 className="h-4 w-4 animate-spin text-secondary" />
                   ) : (
                     <CheckCircle2 className="h-4 w-4 text-green-400" />
                   )}
