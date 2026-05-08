@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { UploadCloud, FileText, CheckCircle2, Download, Loader2 } from "lucide-react";
+import convertBg from "@/assets/convert-bg.jpg";
 
 const stages = ["Uploading", "Processing", "Optimizing", "Ready"] as const;
 
@@ -30,8 +31,18 @@ export function ConvertPreview() {
   }, []);
 
   return (
-    <section id="convert" className="relative py-32 px-4 sm:px-6">
-      <div className="mx-auto max-w-6xl">
+    <section id="convert" className="relative py-32 px-4 sm:px-6 overflow-hidden">
+      <img
+        src={convertBg}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        width={1536}
+        height={1024}
+        className="absolute inset-0 h-full w-full object-cover opacity-15"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background pointer-events-none" />
+      <div className="relative mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <p className="text-sm font-medium text-gradient">Station de conversion</p>
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold">Une interface claire, un résultat instantané</h2>
