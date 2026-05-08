@@ -6,7 +6,17 @@ export function useFileProcessing() {
     mutationFn: processingService.submitPdfMerge,
   });
 
+  const imagesToPdfMutation = useMutation({
+    mutationFn: processingService.submitImagesToPdf,
+  });
+
+  const imageConvertMutation = useMutation({
+    mutationFn: processingService.submitImageConvert,
+  });
+
   return {
     pdfMerge: pdfMergeMutation,
+    imagesToPdf: imagesToPdfMutation,
+    imageConvert: imageConvertMutation,
   };
 }
