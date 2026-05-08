@@ -1,0 +1,96 @@
+import { api } from "@/api/api";
+import { endpoints } from "@/api/endpoints";
+import type { ProcessingJob, ToolDefinition } from "@/types/jobs";
+
+export const supportedTools: ToolDefinition[] = [
+  {
+    slug: "pdf-merge",
+    title: "Merge PDF",
+    description: "Combinez plusieurs PDF dans un seul document.",
+    category: "pdf",
+    tool: "PDF_MERGE",
+    acceptsMultiple: true,
+  },
+  {
+    slug: "pdf-split",
+    title: "Split PDF",
+    description: "Découpez un PDF par pages ou par plage.",
+    category: "pdf",
+    tool: "PDF_SPLIT",
+    acceptsMultiple: false,
+  },
+  {
+    slug: "pdf-rotate",
+    title: "Rotate PDF",
+    description: "Faites pivoter un PDF complet ou une plage de pages.",
+    category: "pdf",
+    tool: "PDF_ROTATE",
+    acceptsMultiple: false,
+  },
+  {
+    slug: "pdf-to-images",
+    title: "PDF to Images",
+    description: "Transformez un PDF en images PNG ou JPG.",
+    category: "pdf",
+    tool: "PDF_TO_IMAGES",
+    acceptsMultiple: false,
+  },
+  {
+    slug: "images-to-pdf",
+    title: "Images to PDF",
+    description: "Assemblez plusieurs images dans un PDF.",
+    category: "pdf",
+    tool: "IMAGES_TO_PDF",
+    acceptsMultiple: true,
+  },
+  {
+    slug: "image-convert",
+    title: "Convert Image",
+    description: "Convertissez une image vers un autre format.",
+    category: "image",
+    tool: "IMAGE_CONVERT",
+    acceptsMultiple: false,
+  },
+  {
+    slug: "image-resize",
+    title: "Resize Image",
+    description: "Redimensionnez une image avec options de ratio.",
+    category: "image",
+    tool: "IMAGE_RESIZE",
+    acceptsMultiple: false,
+  },
+  {
+    slug: "image-compress",
+    title: "Compress Image",
+    description: "Réduisez le poids d’une image en conservant le design actuel.",
+    category: "image",
+    tool: "IMAGE_COMPRESS",
+    acceptsMultiple: false,
+  },
+  {
+    slug: "image-rotate-flip",
+    title: "Rotate or Flip Image",
+    description: "Faites pivoter ou retourner une image.",
+    category: "image",
+    tool: "IMAGE_ROTATE_FLIP",
+    acceptsMultiple: false,
+  },
+];
+
+export const getToolBySlug = (slug: string) =>
+  supportedTools.find((tool) => tool.slug === slug) ?? null;
+
+export const processingService = {
+  getSupportedTools() {
+    return supportedTools;
+  },
+  submitPdfMerge(files: File[]) {
+    const formData = new FormData();
+
+    files.forEach((file) => {
+      formData.append("files", file);
+    });
+
+    return api.post<ProcessingJob>(endpoints.processing.pdfMerge, formData);
+  },
+};
