@@ -6,7 +6,6 @@ import { ToolsGrid } from "@/components/fileorbit/ToolsGrid";
 import { ConvertPreview } from "@/components/fileorbit/ConvertPreview";
 import { DashboardPreview } from "@/components/fileorbit/DashboardPreview";
 import { Footer } from "@/components/fileorbit/Footer";
-import { Starfield } from "@/components/fileorbit/Starfield";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -25,10 +24,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="relative min-h-screen bg-background text-foreground">
-      <div className="fixed inset-0 -z-10">
-        <Starfield count={120} />
-        <div className="absolute inset-0 bg-aurora" />
-      </div>
+      <div className="fixed inset-0 -z-10 bg-aurora" />
       <Navbar />
       <main>
         <Hero />

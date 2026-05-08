@@ -4,7 +4,7 @@ import { FileText, Image as ImageIcon, FileType2, HardDrive, Zap, Clock } from "
 const recent = [
   { icon: FileText, name: "contrat-2026.pdf", time: "il y a 2 min", status: "Done", color: "text-green-400" },
   { icon: ImageIcon, name: "hero-banner.webp", time: "il y a 14 min", status: "Done", color: "text-green-400" },
-  { icon: FileType2, name: "rapport.docx", time: "il y a 1 h", status: "Processing", color: "text-cyan-300" },
+  { icon: FileType2, name: "rapport.docx", time: "il y a 1 h", status: "Processing", color: "text-secondary" },
   { icon: FileText, name: "facture-mai.pdf", time: "il y a 3 h", status: "Done", color: "text-green-400" },
 ];
 
@@ -51,7 +51,7 @@ export function DashboardPreview() {
               {recent.map((r) => (
                 <div key={r.name} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition">
                   <div className="h-9 w-9 rounded-lg bg-white/5 flex items-center justify-center">
-                    <r.icon className="h-4 w-4 text-cyan-300" />
+                    <r.icon className="h-4 w-4 text-secondary" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="text-sm font-medium truncate">{r.name}</div>
@@ -68,7 +68,7 @@ export function DashboardPreview() {
             {/* storage */}
             <div className="glass rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
-                <HardDrive className="h-4 w-4 text-cyan-300" />
+                <HardDrive className="h-4 w-4 text-secondary" />
                 <h3 className="font-semibold text-sm">Storage used</h3>
               </div>
               <div className="text-2xl font-bold">6.4 <span className="text-sm text-muted-foreground">/ 20 GB</span></div>
@@ -99,7 +99,7 @@ export function DashboardPreview() {
                     key={a.label}
                     className="glass rounded-xl py-3 flex flex-col items-center gap-1 hover:bg-white/10 transition"
                   >
-                    <a.icon className="h-4 w-4 text-cyan-300" />
+                    <a.icon className="h-4 w-4 text-secondary" />
                     <span className="text-xs">{a.label}</span>
                   </button>
                 ))}
