@@ -77,6 +77,20 @@ export const supportedTools: ToolDefinition[] = [
   },
 ];
 
+export interface ImagesToPdfPayload {
+  files: File[];
+  pageSize?: string;
+  orientation?: "portrait" | "landscape";
+  background?: string;
+}
+
+export interface ImageConvertPayload {
+  file: File;
+  outputFormat: "webp" | "png" | "jpeg";
+  quality?: number;
+  background?: string;
+}
+
 export const getToolBySlug = (slug: string) =>
   supportedTools.find((tool) => tool.slug === slug) ?? null;
 
@@ -92,5 +106,28 @@ export const processingService = {
     });
 
     return api.post<ProcessingJob>(endpoints.processing.pdfMerge, formData);
+  },
+  submitImagesToPdf(payload: ImagesToPdfPayload) {
+    const formData = new FormData();
+
+    payload.files.forEach((file) => {
+      formData.append("files", file);
+    });
+
+    formData.append("page_size", payload.pageSize ?? "auto");
+    formData.append("orientation", payload.orientation ?? "portrait");
+    formData.append("background", payload.background ?? "#ffffff");
+
+    return api.post<ProcessingJob>(endpoints.processing.imagesToPdf, formData);
+  },
+  submitImageConvert(payload: ImageConvertPayload) {
+    const formData = new FormData();
+
+    formData.append("file", payload.file);
+    formData.append("output_format", payload.outputFormat);
+    formData.append("quality", String(payload.quality ?? 85));
+    formData.append("background", payload.background ?? "#ffffff");
+
+    return api.post<ProcessingJob>(endpoints.processing.imageConvert, formData);
   },
 };
