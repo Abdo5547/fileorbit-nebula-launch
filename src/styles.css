@@ -63,39 +63,37 @@
 
 :root {
   --radius: 0.625rem;
-  /* FileOrbit — deep space dark theme */
-  --background: oklch(0.13 0.04 270);
-  --foreground: oklch(0.97 0.01 250);
-  --card: oklch(0.18 0.05 275 / 0.6);
-  --card-foreground: oklch(0.97 0.01 250);
-  --popover: oklch(0.18 0.05 275);
-  --popover-foreground: oklch(0.97 0.01 250);
-  --primary: oklch(0.72 0.2 295);
-  --primary-foreground: oklch(0.12 0.04 270);
-  --secondary: oklch(0.78 0.15 220);
-  --secondary-foreground: oklch(0.12 0.04 270);
-  --muted: oklch(0.25 0.04 270);
-  --muted-foreground: oklch(0.72 0.03 260);
-  --accent: oklch(0.82 0.16 200);
-  --accent-foreground: oklch(0.12 0.04 270);
+  /* FileOrbit — Tor-inspired mauve & yellow theme */
+  --background: oklch(0.14 0.04 320);
+  --foreground: oklch(0.97 0.01 320);
+  --card: oklch(0.20 0.06 320 / 0.6);
+  --card-foreground: oklch(0.97 0.01 320);
+  --popover: oklch(0.20 0.06 320);
+  --popover-foreground: oklch(0.97 0.01 320);
+  --primary: oklch(0.62 0.18 320);
+  --primary-foreground: oklch(0.99 0.01 100);
+  --secondary: oklch(0.85 0.17 90);
+  --secondary-foreground: oklch(0.18 0.04 320);
+  --muted: oklch(0.26 0.04 320);
+  --muted-foreground: oklch(0.74 0.03 320);
+  --accent: oklch(0.85 0.17 90);
+  --accent-foreground: oklch(0.18 0.04 320);
   --destructive: oklch(0.65 0.24 20);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.7 0.1 280 / 0.18);
-  --input: oklch(0.7 0.1 280 / 0.2);
-  --ring: oklch(0.72 0.2 295);
+  --border: oklch(0.7 0.1 320 / 0.2);
+  --input: oklch(0.7 0.1 320 / 0.2);
+  --ring: oklch(0.62 0.18 320);
 
   /* FileOrbit custom tokens */
-  --orbit-violet: oklch(0.72 0.22 300);
-  --orbit-cyan: oklch(0.85 0.16 200);
-  --orbit-blue: oklch(0.65 0.2 260);
-  --orbit-deep: oklch(0.09 0.04 270);
-  --gradient-cosmic: linear-gradient(135deg, oklch(0.72 0.22 300), oklch(0.65 0.2 260) 50%, oklch(0.85 0.16 200));
-  --gradient-aurora: radial-gradient(ellipse at top, oklch(0.4 0.18 290 / 0.5), transparent 60%);
-  --gradient-planet: radial-gradient(circle at 30% 30%, oklch(0.85 0.18 200), oklch(0.55 0.22 285) 45%, oklch(0.2 0.08 280) 80%);
-  --shadow-glow: 0 0 60px oklch(0.72 0.22 300 / 0.45), 0 0 120px oklch(0.65 0.2 260 / 0.25);
-  --shadow-card: 0 8px 32px oklch(0.05 0.03 270 / 0.6);
-  --glass-bg: oklch(0.22 0.05 275 / 0.35);
-  --glass-border: oklch(0.85 0.05 280 / 0.15);
+  --mauve: oklch(0.62 0.18 320);
+  --mauve-soft: oklch(0.72 0.15 320);
+  --yellow: oklch(0.85 0.17 90);
+  --gradient-cosmic: linear-gradient(135deg, oklch(0.55 0.2 320), oklch(0.7 0.18 320) 60%, oklch(0.85 0.17 90));
+  --gradient-aurora: radial-gradient(ellipse at top, oklch(0.4 0.18 320 / 0.45), transparent 60%);
+  --shadow-glow: 0 0 50px oklch(0.62 0.18 320 / 0.35), 0 0 100px oklch(0.85 0.17 90 / 0.15);
+  --shadow-card: 0 8px 32px oklch(0.05 0.03 320 / 0.5);
+  --glass-bg: oklch(0.22 0.05 320 / 0.4);
+  --glass-border: oklch(0.85 0.05 320 / 0.15);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -194,11 +192,9 @@
   50% { opacity: 1; }
 }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 30px oklch(0.72 0.22 300 / 0.4); }
-  50% { box-shadow: 0 0 70px oklch(0.72 0.22 300 / 0.8); }
+  0%, 100% { box-shadow: 0 0 24px oklch(0.62 0.18 320 / 0.4); }
+  50% { box-shadow: 0 0 50px oklch(0.62 0.18 320 / 0.7); }
 }
 .animate-float { animation: float-slow 6s ease-in-out infinite; }
-.animate-orbit { animation: orbit-spin 40s linear infinite; }
-.animate-orbit-reverse { animation: orbit-spin 50s linear infinite reverse; }
 .animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
