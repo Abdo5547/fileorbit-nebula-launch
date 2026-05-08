@@ -1,0 +1,25 @@
+export const endpoints = {
+  health: "/api/health/",
+  auth: {
+    csrf: "/api/auth/csrf/",
+    register: "/api/auth/register/",
+    login: "/api/auth/login/",
+    logout: "/api/auth/logout/",
+    me: "/api/auth/me/",
+  },
+  processing: {
+    jobs: "/api/processing/jobs/",
+    jobDetail: (jobId: string) => `/api/processing/jobs/${jobId}/`,
+    jobDownload: (jobId: string) => `/api/processing/jobs/${jobId}/download/`,
+    pdfMerge: "/api/processing/pdf/merge/",
+    pdfMergeAsync: "/api/processing/pdf/merge/async/",
+    imagesToPdf: "/api/processing/pdf/images-to-pdf/",
+    pdfSplit: "/api/processing/pdf/split/",
+    pdfRotate: "/api/processing/pdf/rotate/",
+    pdfToImages: "/api/processing/pdf/to-images/",
+    imageConvert: "/api/processing/images/convert/",
+    imageResize: "/api/processing/images/resize/",
+    imageCompress: "/api/processing/images/compress/",
+    imageRotateFlip: "/api/processing/images/rotate-flip/",
+  },
+} as const;
