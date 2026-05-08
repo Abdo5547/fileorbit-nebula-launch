@@ -7,8 +7,11 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
+import { AuthProvider } from "@/store/auth.store";
+import { authService } from "@/services/auth.service";
 
 function NotFoundComponent() {
   return (
@@ -72,14 +75,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "FileOrbit" },
+      {
+        name: "description",
+        content: "Convertissez, compressez et pilotez vos fichiers depuis FileOrbit.",
+      },
+      { name: "author", content: "FileOrbit" },
+      { property: "og:title", content: "FileOrbit" },
+      {
+        property: "og:description",
+        content: "Convertissez, compressez et pilotez vos fichiers depuis FileOrbit.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -96,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <head>
         <HeadContent />
       </head>
@@ -108,12 +116,25 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+function SessionBootstrap() {
+  useEffect(() => {
+    void authService.initializeSession().catch((error) => {
+      console.error("CSRF bootstrap failed", error);
+    });
+  }, []);
+
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <SessionBootstrap />
+      <AuthProvider>
+        <Outlet />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
