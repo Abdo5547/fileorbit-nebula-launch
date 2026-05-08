@@ -1,42 +1,46 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { FileText, Image as ImageIcon, Layers, Minimize2, Maximize2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { FileText, Image as ImageIcon, Layers, Minimize2, Maximize2, ShieldCheck } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
+import heroDoc from "@/assets/hero-doc.png";
 
-const orbitTools = [
-  { icon: FileText, label: "PDF to Word", angle: 0, color: "from-violet-400 to-fuchsia-500" },
-  { icon: Minimize2, label: "Compress PDF", angle: 72, color: "from-cyan-400 to-blue-500" },
-  { icon: Layers, label: "Merge PDF", angle: 144, color: "from-blue-400 to-violet-500" },
-  { icon: ImageIcon, label: "JPG to PDF", angle: 216, color: "from-fuchsia-400 to-pink-500" },
-  { icon: Maximize2, label: "Resize Image", angle: 288, color: "from-cyan-300 to-teal-400" },
+const floatingTools = [
+  { icon: FileText, label: "PDF to Word", x: "-12%", y: "8%", delay: 0 },
+  { icon: Minimize2, label: "Compress", x: "82%", y: "12%", delay: 0.1 },
+  { icon: Layers, label: "Merge PDF", x: "-8%", y: "62%", delay: 0.2 },
+  { icon: ImageIcon, label: "JPG to PDF", x: "85%", y: "58%", delay: 0.3 },
+  { icon: Maximize2, label: "Resize", x: "40%", y: "92%", delay: 0.4 },
 ];
 
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const planetScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
-  const planetY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-
   return (
-    <section ref={ref} className="relative pt-36 pb-32 px-4 sm:px-6 overflow-hidden">
-      <div className="absolute inset-0 bg-aurora pointer-events-none" />
+    <section className="relative pt-36 pb-32 px-4 sm:px-6 overflow-hidden">
+      <img
+        src={heroBg}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover opacity-40"
+        width={1536}
+        height={1024}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background pointer-events-none" />
       <div className="relative mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-center">
-        <motion.div style={{ y: titleY }} className="text-center lg:text-left">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 text-xs text-muted-foreground"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-cosmic animate-pulse" />
-            New · OCR & background removal in orbit
-          </motion.span>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center lg:text-left"
+        >
+          <span className="inline-flex items-center gap-2 glass rounded-full px-3 py-1 text-xs text-muted-foreground">
+            <ShieldCheck className="h-3 w-3 text-secondary" />
+            Sécurisé · Privé · Sans inscription
+          </span>
           <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
-            Tous vos fichiers <br />
-            dans une seule <span className="text-gradient">orbite</span>
+            Tous vos fichiers, <br />
+            une seule <span className="text-gradient">plateforme</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
             Convertissez, compressez, fusionnez et optimisez vos PDF, images et documents
-            en quelques secondes — depuis une station spatiale moderne et sécurisée.
+            en quelques secondes — simple, rapide et confidentiel.
           </p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
             <a
@@ -59,39 +63,46 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <motion.div style={{ scale: planetScale, y: planetY }} className="relative aspect-square max-w-[520px] mx-auto w-full">
-          {/* orbit rings */}
-          <div className="absolute inset-0 rounded-full border border-white/10" />
-          <div className="absolute inset-6 rounded-full border border-white/5" />
-          <div className="absolute inset-12 rounded-full border border-white/5" />
-
-          {/* planet */}
-          <div className="absolute inset-[22%] rounded-full planet animate-pulse-glow" />
-
-          {/* rotating tool cards */}
-          <div className="absolute inset-0 animate-orbit">
-            {orbitTools.map((t) => {
-              const rad = (t.angle * Math.PI) / 180;
-              const r = 46; // % radius
-              const x = 50 + r * Math.cos(rad);
-              const y = 50 + r * Math.sin(rad);
-              const Icon = t.icon;
-              return (
-                <div
-                  key={t.label}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 animate-orbit-reverse"
-                  style={{ top: `${y}%`, left: `${x}%` }}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative aspect-square max-w-[520px] mx-auto w-full"
+        >
+          <div className="absolute inset-[15%] rounded-3xl bg-primary/20 blur-3xl" />
+          <motion.img
+            src={heroDoc}
+            alt="Document"
+            width={1024}
+            height={1024}
+            className="absolute inset-[18%] object-contain drop-shadow-[0_0_40px_oklch(0.62_0.18_320/0.6)]"
+            animate={{ y: [0, -14, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {floatingTools.map((t) => {
+            const Icon = t.icon;
+            return (
+              <motion.div
+                key={t.label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 + t.delay }}
+                style={{ left: t.x, top: t.y }}
+                className="absolute"
+              >
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 4 + t.delay * 2, repeat: Infinity, ease: "easeInOut", delay: t.delay }}
+                  className="glass rounded-2xl px-3 py-2 flex items-center gap-2 shadow-card"
                 >
-                  <div className="glass rounded-2xl px-3 py-2 flex items-center gap-2 animate-float shadow-card">
-                    <span className={`h-7 w-7 rounded-lg bg-gradient-to-br ${t.color} flex items-center justify-center`}>
-                      <Icon className="h-4 w-4 text-white" />
-                    </span>
-                    <span className="text-xs font-medium whitespace-nowrap">{t.label}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                  <span className="h-7 w-7 rounded-lg bg-cosmic flex items-center justify-center">
+                    <Icon className="h-4 w-4 text-primary-foreground" />
+                  </span>
+                  <span className="text-xs font-medium whitespace-nowrap">{t.label}</span>
+                </motion.div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
