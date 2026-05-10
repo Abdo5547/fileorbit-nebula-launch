@@ -26,38 +26,66 @@ interface RequestOptions {
 let csrfTokenCache: string | null = null;
 let csrfRequest: Promise<string> | null = null;
 
+const friendlyFieldNames: Record<string, string> = {
+  email: "Email",
+  password: "Mot de passe",
+  password_confirm: "Confirmation du mot de passe",
+  full_name: "Nom complet",
+  non_field_errors: "Formulaire",
+  detail: "Détail",
+};
+
 const isFormData = (value: BodyInit | null | undefined): value is FormData =>
   typeof FormData !== "undefined" && value instanceof FormData;
 
 const toAbsoluteUrl = (path: string) => `${env.apiBaseUrl}${path}`;
 
+const normalizeFieldName = (field: string) => {
+  return friendlyFieldNames[field] ?? field.replace(/_/g, " ");
+};
+
+const collectMessages = (value: unknown, field?: string): string[] => {
+  if (typeof value === "string") {
+    return field ? [`${normalizeFieldName(field)}: ${value}`] : [value];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => collectMessages(item, field));
+  }
+
+  if (value && typeof value === "object") {
+    return Object.entries(value).flatMap(([key, nestedValue]) => collectMessages(nestedValue, key));
+  }
+
+  return [];
+};
+
 const normalizeErrorMessage = (data: unknown, fallback: string) => {
-  if (!data || typeof data !== "object") {
-    return fallback;
-  }
-
-  if ("detail" in data && typeof data.detail === "string") {
-    return data.detail;
-  }
-
-  const messages = Object.entries(data)
-    .flatMap(([field, value]) => {
-      if (Array.isArray(value)) {
-        return value.map((item) => `${field}: ${String(item)}`);
-      }
-
-      if (typeof value === "string") {
-        return `${field}: ${value}`;
-      }
-
-      return [];
-    })
-    .filter(Boolean);
-
+  const messages = collectMessages(data).filter(Boolean);
   return messages[0] ?? fallback;
 };
 
+const containsCsrfError = (value: unknown): boolean => {
+  if (typeof value === "string") {
+    return value.toLowerCase().includes("csrf");
+  }
+
+  if (Array.isArray(value)) {
+    return value.some(containsCsrfError);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.values(value).some(containsCsrfError);
+  }
+
+  return false;
+};
+
 const parseResponseBody = async (response: Response) => {
+  if (response.status === 204) {
+    return null;
+  }
+
   const contentType = response.headers.get("content-type") ?? "";
 
   if (contentType.includes("application/json")) {
@@ -84,7 +112,7 @@ const fetchCsrfToken = async () => {
         const data = (await response.json()) as CsrfResponse;
 
         if (!response.ok || !data.csrfToken) {
-          throw new ApiError("Unable to initialize CSRF protection.", response.status, data);
+          throw new ApiError("Impossible d’initialiser la protection CSRF.", response.status, data);
         }
 
         csrfTokenCache = data.csrfToken;
@@ -116,9 +144,14 @@ const buildHeaders = async (
   return finalHeaders;
 };
 
-async function request<T>(path: string, options: RequestOptions = {}) {
+async function request<T>(
+  path: string,
+  options: RequestOptions = {},
+  allowCsrfRetry = true,
+): Promise<T> {
   const method = options.method ?? "GET";
-  const headers = await buildHeaders(options.body, options.headers, Boolean(options.requiresCsrf));
+  const requiresCsrf = Boolean(options.requiresCsrf);
+  const headers = await buildHeaders(options.body, options.headers, requiresCsrf);
 
   const response = await fetch(toAbsoluteUrl(path), {
     method,
@@ -130,6 +163,12 @@ async function request<T>(path: string, options: RequestOptions = {}) {
   const data = await parseResponseBody(response);
 
   if (!response.ok) {
+    if (allowCsrfRetry && requiresCsrf && response.status === 403 && containsCsrfError(data)) {
+      csrfTokenCache = null;
+      await fetchCsrfToken();
+      return request<T>(path, options, false);
+    }
+
     throw new ApiError(
       normalizeErrorMessage(data, "Une erreur est survenue lors de l’appel API."),
       response.status,
