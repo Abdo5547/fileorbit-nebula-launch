@@ -7,11 +7,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
 import { AuthProvider } from "@/store/auth.store";
-import { authService } from "@/services/auth.service";
 
 function NotFoundComponent() {
   return (
@@ -116,22 +114,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SessionBootstrap() {
-  useEffect(() => {
-    void authService.initializeSession().catch((error) => {
-      console.error("CSRF bootstrap failed", error);
-    });
-  }, []);
-
-  return null;
-}
-
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionBootstrap />
       <AuthProvider>
         <Outlet />
       </AuthProvider>
