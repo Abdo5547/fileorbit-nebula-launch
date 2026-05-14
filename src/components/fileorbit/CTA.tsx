@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import ctaBg from "@/assets/cta-bg.jpg";
 
 export function CTA() {
   return (
@@ -12,6 +13,15 @@ export function CTA() {
           transition={{ duration: 0.5 }}
           className="relative overflow-hidden rounded-3xl bg-cosmic p-10 sm:p-16 text-center shadow-glow"
         >
+          <img
+            src={ctaBg}
+            alt=""
+            aria-hidden
+            loading="lazy"
+            width={1536}
+            height={1024}
+            className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay"
+          />
           <div className="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-secondary/30 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-primary/40 blur-3xl" />
           <div className="relative">
