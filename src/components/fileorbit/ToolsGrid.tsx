@@ -29,7 +29,7 @@ const imageTools: Tool[] = [
 
 export function ToolsGrid() {
   return (
-    <section id="tools" className="relative py-32 px-4 sm:px-6">
+    <section id="tools" className="relative py-20 sm:py-28 px-4 sm:px-6">
       <div className="absolute inset-0 bg-aurora opacity-50 pointer-events-none" />
       <div className="relative mx-auto max-w-7xl">
         <div className="text-center max-w-2xl mx-auto">
