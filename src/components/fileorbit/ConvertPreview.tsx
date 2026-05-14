@@ -31,7 +31,7 @@ export function ConvertPreview() {
   }, []);
 
   return (
-    <section id="convert" className="relative py-32 px-4 sm:px-6 overflow-hidden">
+    <section id="convert" className="relative py-20 sm:py-28 px-4 sm:px-6 overflow-hidden">
       <img
         src={convertBg}
         alt=""

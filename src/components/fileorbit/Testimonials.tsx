@@ -24,7 +24,7 @@ const items = [
 
 export function Testimonials() {
   return (
-    <section className="relative py-32 px-4 sm:px-6">
+    <section className="relative py-20 sm:py-28 px-4 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <p className="text-sm font-medium text-gradient">Ils nous font confiance</p>

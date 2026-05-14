@@ -13,7 +13,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+    <section className="relative py-20 sm:py-28 px-4 sm:px-6 overflow-hidden">
       <img
         src={featuresBg}
         alt=""

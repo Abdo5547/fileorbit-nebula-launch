@@ -5,7 +5,7 @@ const formats = ["PDF", "DOCX", "XLSX", "PPTX", "JPG", "PNG", "WEBP", "HEIC", "S
 
 export function Formats() {
   return (
-    <section className="relative py-20 px-4 sm:px-6 border-y border-border overflow-hidden">
+    <section className="relative py-14 sm:py-20 px-4 sm:px-6 border-y border-border overflow-hidden">
       <img
         src={formatsBg}
         alt=""

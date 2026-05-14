@@ -13,7 +13,7 @@ const floatingTools = [
 
 export function Hero() {
   return (
-    <section className="relative pt-36 pb-32 px-4 sm:px-6 overflow-hidden">
+    <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-32 px-4 sm:px-6 overflow-hidden">
       <img
         src={heroBg}
         alt=""
@@ -23,7 +23,7 @@ export function Hero() {
         height={1024}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background pointer-events-none" />
-      <div className="relative mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative mx-auto max-w-7xl grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -34,29 +34,29 @@ export function Hero() {
             <ShieldCheck className="h-3 w-3 text-secondary" />
             Sécurisé · Privé · Sans inscription
           </span>
-          <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
+          <h1 className="mt-5 text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-bold tracking-tight">
             Tous vos fichiers, <br />
             une seule <span className="text-gradient">plateforme</span>
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
+          <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0">
             Convertissez, compressez, fusionnez et optimisez vos PDF, images et documents
             en quelques secondes — simple, rapide et confidentiel.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3 justify-center lg:justify-start">
+          <div className="mt-7 flex flex-wrap gap-3 justify-center lg:justify-start">
             <a
               href="#convert"
-              className="bg-cosmic text-primary-foreground font-medium px-6 py-3 rounded-xl shadow-glow hover:opacity-90 transition"
+              className="bg-cosmic text-primary-foreground font-medium px-5 sm:px-6 py-3 rounded-xl shadow-glow hover:opacity-90 transition w-full sm:w-auto text-center"
             >
               Commencer maintenant
             </a>
             <a
               href="#tools"
-              className="glass text-foreground font-medium px-6 py-3 rounded-xl hover:bg-white/5 transition"
+              className="glass text-foreground font-medium px-5 sm:px-6 py-3 rounded-xl hover:bg-white/5 transition w-full sm:w-auto text-center"
             >
               Explorer les outils
             </a>
           </div>
-          <div className="mt-10 flex items-center gap-6 justify-center lg:justify-start text-xs text-muted-foreground">
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 justify-center lg:justify-start text-xs text-muted-foreground">
             <div><span className="text-foreground font-semibold">2.4M</span> fichiers traités</div>
             <div><span className="text-foreground font-semibold">99.9%</span> uptime</div>
             <div><span className="text-foreground font-semibold">256-bit</span> chiffrement</div>
@@ -67,7 +67,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="relative aspect-square max-w-[520px] mx-auto w-full"
+          className="relative aspect-square max-w-[360px] sm:max-w-[520px] mx-auto w-full"
         >
           <div className="absolute inset-[15%] rounded-3xl bg-primary/20 blur-3xl" />
           <motion.img
@@ -93,12 +93,12 @@ export function Hero() {
                 <motion.div
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 4 + t.delay * 2, repeat: Infinity, ease: "easeInOut", delay: t.delay }}
-                  className="glass rounded-2xl px-3 py-2 flex items-center gap-2 shadow-card"
+                  className="glass rounded-xl sm:rounded-2xl px-2 sm:px-3 py-1.5 sm:py-2 flex items-center gap-1.5 sm:gap-2 shadow-card"
                 >
-                  <span className="h-7 w-7 rounded-lg bg-cosmic flex items-center justify-center">
-                    <Icon className="h-4 w-4 text-primary-foreground" />
+                  <span className="h-6 w-6 sm:h-7 sm:w-7 rounded-lg bg-cosmic flex items-center justify-center">
+                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary-foreground" />
                   </span>
-                  <span className="text-xs font-medium whitespace-nowrap">{t.label}</span>
+                  <span className="text-[10px] sm:text-xs font-medium whitespace-nowrap">{t.label}</span>
                 </motion.div>
               </motion.div>
             );

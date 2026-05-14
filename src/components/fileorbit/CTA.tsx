@@ -4,14 +4,14 @@ import ctaBg from "@/assets/cta-bg.jpg";
 
 export function CTA() {
   return (
-    <section className="relative py-32 px-4 sm:px-6">
+    <section className="relative py-20 sm:py-28 px-4 sm:px-6">
       <div className="mx-auto max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-3xl bg-cosmic p-10 sm:p-16 text-center shadow-glow"
+          className="relative overflow-hidden rounded-3xl bg-cosmic p-6 sm:p-10 lg:p-16 text-center shadow-glow"
         >
           <img
             src={ctaBg}
@@ -28,22 +28,22 @@ export function CTA() {
             <span className="inline-flex items-center gap-2 bg-background/20 backdrop-blur rounded-full px-3 py-1 text-xs text-primary-foreground">
               <Sparkles className="h-3 w-3 text-secondary" /> Essai gratuit · sans carte
             </span>
-            <h2 className="mt-5 text-3xl sm:text-5xl font-bold text-primary-foreground leading-tight">
+            <h2 className="mt-5 text-2xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground leading-tight">
               Prêt à libérer vos fichiers ?
             </h2>
             <p className="mt-4 text-primary-foreground/80 max-w-lg mx-auto">
               Rejoignez 180 000 utilisateurs qui simplifient leurs documents chaque jour avec FileOrbit.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3">
               <a
                 href="#convert"
-                className="bg-secondary text-secondary-foreground font-semibold px-6 py-3 rounded-xl inline-flex items-center gap-2 hover:opacity-90 transition"
+                className="bg-secondary text-secondary-foreground font-semibold px-6 py-3 rounded-xl inline-flex items-center justify-center gap-2 hover:opacity-90 transition"
               >
                 Commencer gratuitement <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="#pricing"
-                className="bg-background/20 backdrop-blur text-primary-foreground font-medium px-6 py-3 rounded-xl hover:bg-background/30 transition"
+                className="bg-background/20 backdrop-blur text-primary-foreground font-medium px-6 py-3 rounded-xl hover:bg-background/30 transition text-center"
               >
                 Voir les tarifs
               </a>

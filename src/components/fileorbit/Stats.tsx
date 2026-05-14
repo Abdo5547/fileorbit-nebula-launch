@@ -11,7 +11,7 @@ const stats = [
 
 export function Stats() {
   return (
-    <section className="relative py-16 px-4 sm:px-6 overflow-hidden">
+    <section className="relative py-12 sm:py-16 px-4 sm:px-6 overflow-hidden">
       <img
         src={statsBg}
         alt=""
@@ -23,7 +23,7 @@ export function Stats() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background pointer-events-none" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="glass rounded-3xl p-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="glass rounded-3xl p-5 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
@@ -31,13 +31,13 @@ export function Stats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="flex items-center gap-4"
+              className="flex items-center gap-3 sm:gap-4"
             >
-              <div className="h-12 w-12 rounded-2xl bg-cosmic flex items-center justify-center shadow-glow shrink-0">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-cosmic flex items-center justify-center shadow-glow shrink-0">
                 <s.icon className="h-5 w-5 text-primary-foreground" />
               </div>
               <div>
-                <div className="text-2xl font-bold leading-none">{s.value}</div>
+                <div className="text-xl sm:text-2xl font-bold leading-none">{s.value}</div>
                 <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
               </div>
             </motion.div>
