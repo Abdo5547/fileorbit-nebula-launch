@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FileCheck2, Users, Globe2, Zap } from "lucide-react";
+import statsBg from "@/assets/stats-bg.jpg";
 
 const stats = [
   { icon: FileCheck2, value: "2.4M+", label: "Fichiers traités" },
@@ -10,8 +11,18 @@ const stats = [
 
 export function Stats() {
   return (
-    <section className="relative py-16 px-4 sm:px-6">
-      <div className="mx-auto max-w-7xl">
+    <section className="relative py-16 px-4 sm:px-6 overflow-hidden">
+      <img
+        src={statsBg}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        width={1536}
+        height={1024}
+        className="absolute inset-0 h-full w-full object-cover opacity-15"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background pointer-events-none" />
+      <div className="relative mx-auto max-w-7xl">
         <div className="glass rounded-3xl p-8 grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((s, i) => (
             <motion.div

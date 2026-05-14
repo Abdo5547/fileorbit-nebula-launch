@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Sparkles, Cloud, Cpu, Lock, Infinity as InfinityIcon } from "lucide-react";
+import featuresBg from "@/assets/features-bg.jpg";
 
 const features = [
   { icon: ShieldCheck, title: "Confidentialité totale", desc: "Aucun fichier conservé après traitement. Tout est chiffré en transit et au repos." },
@@ -12,7 +13,17 @@ const features = [
 
 export function Features() {
   return (
-    <section className="relative py-32 px-4 sm:px-6">
+    <section className="relative py-32 px-4 sm:px-6 overflow-hidden">
+      <img
+        src={featuresBg}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        width={1536}
+        height={1024}
+        className="absolute inset-0 h-full w-full object-cover opacity-20"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background pointer-events-none" />
       <div className="absolute left-1/2 top-1/4 -translate-x-1/2 h-72 w-72 rounded-full bg-primary/30 blur-3xl pointer-events-none" />
       <div className="absolute right-10 bottom-10 h-60 w-60 rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
       <div className="relative mx-auto max-w-6xl">
