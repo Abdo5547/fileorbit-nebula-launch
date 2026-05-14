@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FileText, Image as ImageIcon, Layers, Minimize2, Maximize2, ShieldCheck } from "lucide-react";
+import { useEffect, useState } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroDoc from "@/assets/hero-doc.png";
 
@@ -12,6 +13,14 @@ const floatingTools = [
 ];
 
 export function Hero() {
+  const [lite, setLite] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px), (prefers-reduced-motion: reduce)");
+    const update = () => setLite(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
   return (
     <section className="relative pt-28 sm:pt-36 pb-20 sm:pb-32 px-4 sm:px-6 overflow-hidden">
       <img
@@ -76,8 +85,8 @@ export function Hero() {
             width={1024}
             height={1024}
             className="absolute inset-[18%] object-contain drop-shadow-[0_0_40px_oklch(0.62_0.18_320/0.6)]"
-            animate={{ y: [0, -14, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            animate={lite ? undefined : { y: [0, -14, 0] }}
+            transition={lite ? undefined : { duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
           {floatingTools.map((t) => {
             const Icon = t.icon;
@@ -91,8 +100,8 @@ export function Hero() {
                 className="absolute"
               >
                 <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 4 + t.delay * 2, repeat: Infinity, ease: "easeInOut", delay: t.delay }}
+                  animate={lite ? undefined : { y: [0, -8, 0] }}
+                  transition={lite ? undefined : { duration: 4 + t.delay * 2, repeat: Infinity, ease: "easeInOut", delay: t.delay }}
                   className="glass rounded-xl sm:rounded-2xl px-2 sm:px-3 py-1.5 sm:py-2 flex items-center gap-1.5 sm:gap-2 shadow-card"
                 >
                   <span className="h-6 w-6 sm:h-7 sm:w-7 rounded-lg bg-cosmic flex items-center justify-center">
